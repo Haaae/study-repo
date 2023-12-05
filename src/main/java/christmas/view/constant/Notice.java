@@ -2,9 +2,9 @@ package christmas.view.constant;
 
 public enum Notice {
 
-    NOTICE_WELCOME("안녕하세요!"),
+    WELCOME("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."),
 
-    ;
+    RESERVATION_DATE("12월 중 식당 예상 방문 날짜는 언제인가요? (1~31 숫자만 입력해주세요!)");
 
     private final String notice;
 

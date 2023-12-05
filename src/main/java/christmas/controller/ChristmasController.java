@@ -25,6 +25,8 @@ public class ChristmasController {
         outputView.printWelcomeNotice();
 
         // 방문 날짜 입력
+        int date = inputView.readReservationDate();
+        Date reservationDate = christmasService.createDate(date);
 
         // 주문 입력
 

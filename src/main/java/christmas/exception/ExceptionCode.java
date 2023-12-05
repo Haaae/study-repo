@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 public enum ExceptionCode {
     NO_EXIST_ENTITY("엔티티가 존재하지 않습니다.", IllegalStateException::new),
-    ;
+    INVALID_DATE("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.", IllegalArgumentException::new);
 
 
     private final String message;
