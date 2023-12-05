@@ -7,12 +7,12 @@ public class Date {
 
     private final int date;
 
-    public Date(final int date) {
+    public Date(final int date, final ExceptionCode e) {
         Validator.isValidRange(
                 date,
                 EventDate.START.getDate(),
                 EventDate.END.getDate(),
-                ExceptionCode.INVALID_DATE
+                e
         );
 
         this.date = date;

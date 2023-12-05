@@ -148,6 +148,50 @@ public class Validator {
         );
     }
 
+    public static void isValidValue(
+            final Number target,
+            final Number validValue,
+            final ExceptionCode e
+    ) {
+        if (!target.equals(validValue)) {
+            e.throwException();
+        }
+    }
+
+    public static void isNotValue(
+            final Number target,
+            final Number invalidValue,
+            final ExceptionCode e
+    ) {
+        if (target.equals(invalidValue)) {
+            e.throwException();
+        }
+    }
+
+    public static void is(final Object o1, final Object o2, final ExceptionCode e) {
+        if (o1 != o2) {
+            e.throwException();
+        }
+    }
+
+    public static void isNot(final Object o1, final Object o2, final ExceptionCode e) {
+        if (o1 == o2) {
+            e.throwException();
+        }
+    }
+
+    public static void equals(final Object o1, final Object o2, final ExceptionCode e) {
+        if (!o1.equals(o2)) {
+            e.throwException();
+        }
+    }
+
+    public static void notEquals(final Object o1, final Object o2, final ExceptionCode e) {
+        if (o1.equals(o2)) {
+            e.throwException();
+        }
+    }
+
     /**
      * 특정 요소가 포함되어 있지 않다면 예외가 발생. List.contains()를 사용한다.
      */
