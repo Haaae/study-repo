@@ -4,7 +4,7 @@ import christmas.domain.Discountable;
 import christmas.domain.reservation.Reservation;
 
 public enum Event {
-    CHRISTMAS(10_000, date -> date * 100 + 1_000, 1_000) {
+    CHRISTMAS(10_000, date -> date * 100 + 1_000, "크리스마스 디데이") {
         @Override
         public boolean canApply(Reservation reservation) {
             return EventDate.isNotOverChristmas(reservation.getDate()) &&
@@ -18,7 +18,7 @@ public enum Event {
         }
     },
 
-    GIFT(120_000, price -> 25_000, 25_000) {
+    GIFT(120_000, price -> 25_000, "증정") {
         @Override
         public boolean canApply(Reservation reservation) {
             return canApplyPrice(reservation.getTotalPrice());
@@ -35,7 +35,7 @@ public enum Event {
         }
     },
 
-    SPECIAL(10_000, price -> 1_000, 1_000) {
+    SPECIAL(10_000, price -> 1_000, "특별") {
         @Override
         public boolean canApply(Reservation reservation) {
             return EventDate.isSundayOrChristmas(reservation.getDate()) &&
@@ -48,7 +48,7 @@ public enum Event {
         }
     },
 
-    WEEKDAY(10_000, countOfMainMenu -> countOfMainMenu * 2_023, 2_023) {
+    WEEKDAY(10_000, countOfMainMenu -> countOfMainMenu * 2_023, "평일") {
         @Override
         public boolean canApply(Reservation reservation) {
             return EventDate.isWeekday(reservation.getDate()) &&
@@ -61,7 +61,7 @@ public enum Event {
         }
     },
 
-    WEEKEND(10_000, countOfDessertMenu -> countOfDessertMenu * 2_023, 2_023) {
+    WEEKEND(10_000, countOfDessertMenu -> countOfDessertMenu * 2_023, "주말") {
         @Override
         public boolean canApply(Reservation reservation) {
             return EventDate.isWeekend(reservation.getDate()) &&
@@ -77,12 +77,12 @@ public enum Event {
 
     private final int minimumTotalPurchasePrice;
     private final Discountable discountable;
-    private final int discountPrice;
+    private final String name;
 
-    Event(int minimumTotalPurchasePrice, Discountable discountable, int discountPrice) {
+    Event(int minimumTotalPurchasePrice, Discountable discountable, String name) {
         this.minimumTotalPurchasePrice = minimumTotalPurchasePrice;
         this.discountable = discountable;
-        this.discountPrice = discountPrice;
+        this.name = name;
     }
 
     public abstract boolean canApply(final Reservation reservation);
@@ -94,5 +94,9 @@ public enum Event {
 
     public int calculateDiscountPrice(int value) {
         return this.discountable.discount(value);
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

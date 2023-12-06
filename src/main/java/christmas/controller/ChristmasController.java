@@ -41,6 +41,7 @@ public class ChristmasController {
         Preview previewOfEvent = christmasService.getPreviewOfEvent(reservationDate, orderBoard);
 
         // 이벤트 적용 미리보기 출력
+        outputView.printPreviewOfEvent(previewOfEvent);
     }
 
     private OrderBoard createOrderBoardFromUserInput(final ExceptionCode e) {

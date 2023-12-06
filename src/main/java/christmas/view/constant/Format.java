@@ -3,8 +3,10 @@ package christmas.view.constant;
 
 public enum Format {
 
-    PRICE("%s원\n"),
-    ;
+    PRICE("%s원"),
+    menuAndCount("%s %d개"),
+    EVENT("%s 할인: -%s원"),
+    TOTAL_DISCOUNT_PRICE("-%s원");
 
     private final String format;
 
@@ -13,6 +15,6 @@ public enum Format {
     }
 
     public void print(Object... args) {
-        System.out.printf(format, args);
+        System.out.printf(format + "\n", args);
     }
 }
