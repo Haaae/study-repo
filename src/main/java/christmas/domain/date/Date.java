@@ -1,5 +1,6 @@
-package christmas.domain;
+package christmas.domain.date;
 
+import christmas.domain.event.EventDate;
 import christmas.exception.ExceptionCode;
 import christmas.utils.vadliator.Validator;
 
@@ -16,5 +17,9 @@ public class Date {
         );
 
         this.date = date;
+    }
+
+    public int getDate() {
+        return date;
     }
 }

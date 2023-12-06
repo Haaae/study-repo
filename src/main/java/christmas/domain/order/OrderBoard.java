@@ -5,6 +5,8 @@ import christmas.exception.ExceptionCode;
 import christmas.utils.vadliator.Validator;
 import christmas.view.dto.OrderDto;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderBoard {
 
@@ -51,5 +53,33 @@ public class OrderBoard {
                 orders.size(),
                 e
         );
+    }
+
+    public int getTotalPrice() {
+        return orders.stream()
+                .mapToInt(Order::getPrice)
+                .sum();
+    }
+
+    public int getCountOfMainMenu() {
+        return (int) orders.stream()
+                .filter(Order::isMain)
+                .count();
+    }
+
+    public int getCountOfDessertMenu() {
+        return (int) orders.stream()
+                .filter(Order::isDessert)
+                .count();
+    }
+
+    public Map<String, Integer> getMenunameWithCount() {
+        return orders.stream()
+                .collect(
+                        Collectors.toUnmodifiableMap(
+                                Order::getName,
+                                Order::getCount
+                        )
+                );
     }
 }

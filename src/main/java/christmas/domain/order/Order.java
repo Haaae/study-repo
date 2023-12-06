@@ -2,6 +2,7 @@ package christmas.domain.order;
 
 import christmas.domain.order.constant.Menu;
 import christmas.domain.order.constant.MenuCount;
+import christmas.domain.order.constant.MenuType;
 import christmas.exception.ExceptionCode;
 import christmas.utils.vadliator.Validator;
 import java.util.Objects;
@@ -25,8 +26,21 @@ public class Order {
     }
 
     public boolean isDrink() {
-        return Menu.isDrink(menu);
+        return menu.is(MenuType.DRINK);
     }
+
+    public boolean isMain() {
+        return menu.is(MenuType.MAIN);
+    }
+
+    public boolean isDessert() {
+        return menu.is(MenuType.DESSERT);
+    }
+
+    public int getPrice() {
+        return menu.getPrice() * count;
+    }
+
 
     public int getCount() {
         return count;
@@ -47,5 +61,9 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(menu);
+    }
+
+    public String getName() {
+        return menu.getName();
     }
 }

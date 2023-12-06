@@ -1,10 +1,11 @@
 package christmas.controller;
 
-import christmas.domain.Date;
+import christmas.domain.date.Date;
 import christmas.domain.order.OrderBoard;
 import christmas.exception.ExceptionCode;
 import christmas.exception.ExceptionHandler;
 import christmas.service.ChristmasService;
+import christmas.service.dto.Preview;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.view.dto.OrderDto;
@@ -35,11 +36,9 @@ public class ChristmasController {
         // 주문 입력
         OrderBoard orderBoard = ExceptionHandler.handle(this::createOrderBoardFromUserInput, ExceptionCode.INVALID_ORDER);
 
-        // 예약 생성
 
-        // 적용 가능 이벤트 적용
-
-        // 이벤트 배지 결정
+        // 이벤트 미리보기 받기
+        Preview previewOfEvent = christmasService.getPreviewOfEvent(reservationDate, orderBoard);
 
         // 이벤트 적용 미리보기 출력
     }
