@@ -56,7 +56,7 @@ public class Validator {
             final int maximumSize,
             final ExceptionCode e
     ) {
-        if (maximumSize <= target || target <= minimumSize) {
+        if (target < minimumSize || maximumSize < target) {
             e.throwException();
         }
     }
@@ -110,9 +110,8 @@ public class Validator {
             final int validSize,
             final ExceptionCode e
     ) {
-        isValidRange(
+        isValidValue(
                 target.size(),
-                validSize,
                 validSize,
                 e
         );
@@ -140,9 +139,8 @@ public class Validator {
             final int validSize,
             final ExceptionCode e
     ) {
-        isValidRange(
+        isValidValue(
                 target.length(),
-                validSize,
                 validSize,
                 e
         );
