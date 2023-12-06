@@ -46,11 +46,13 @@ public class ChristmasController {
 
     private OrderBoard createOrderBoardFromUserInput(final ExceptionCode e) {
         List<OrderDto> orders = inputView.readOrder(e);
-        return christmasService.createOrderBoard(orders, e);
+//        return christmasService.createOrderBoard(orders, e);
+        return new OrderBoard(orders, e);
     }
 
     private Date createReservationDateFromUserInput(final ExceptionCode e) {
         int date = inputView.readReservationDate(e);
-        return christmasService.createDate(date, e);
+//        return christmasService.createDate(date, e);
+        return new Date(date, e);
     }
 }

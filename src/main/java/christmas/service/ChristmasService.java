@@ -23,19 +23,15 @@ public class ChristmasService {
         return instance;
     }
 
-    public Date createDate(final int date, final ExceptionCode e) {
-        return new Date(date, e);
-    }
-
-    public OrderBoard createOrderBoard(final List<OrderDto> orders, final ExceptionCode e) {
-        return new OrderBoard(orders, e);
-    }
-
     public Preview getPreviewOfEvent(final Date reservationDate, final OrderBoard orderBoard) {
-        // 예약 생성
         Reservation reservation = new Reservation(reservationDate, orderBoard);
+        return new Preview(
+                reservation,
+                getEventsWithDiscountPrice(reservation)
+        );
+    }
 
-        // 적용 가능 이벤트 적용
+    private Map<Event, Integer> getEventsWithDiscountPrice(Reservation reservation) {
         Map<Event, Integer> eventsWithDiscountPrice = new EnumMap<>(Event.class);
         Stream.of(Event.values())
                 .filter(event -> event.canApply(reservation))
@@ -44,10 +40,6 @@ public class ChristmasService {
                                 event, event.apply(reservation)
                         )
                 );
-
-        return new Preview(
-                reservation,
-                eventsWithDiscountPrice
-        );
+        return eventsWithDiscountPrice;
     }
 }
