@@ -6,7 +6,7 @@ import java.util.function.Function;
 public enum Event {
     CHRISTMAS(
             reservation ->
-                    EventDate.isNotOverChristmas(reservation.getDate()) &&
+                    reservation.isNotOverChristmas() &&
                     canApplyPrice(
                             reservation.getTotalPrice(),
                             10_000
@@ -21,7 +21,7 @@ public enum Event {
 
     SPECIAL(
             reservation ->
-                    EventDate.isSundayOrChristmas(reservation.getDate()) &&
+                    reservation.isSundayOrChristmas() &&
                     canApplyPrice(
                             reservation.getTotalPrice(),
                             10_000
@@ -31,7 +31,7 @@ public enum Event {
 
     WEEKDAY(
             reservation ->
-                    EventDate.isWeekday(reservation.getDate()) &&
+                    reservation.isWeekday() &&
                     canApplyPrice(
                             reservation.getTotalPrice(),
                             10_000
@@ -41,7 +41,7 @@ public enum Event {
 
     WEEKEND(
             reservation ->
-                    EventDate.isWeekend(reservation.getDate()) &&
+                    reservation.isWeekend() &&
                     canApplyPrice(
                             reservation.getTotalPrice(),
                             10_000

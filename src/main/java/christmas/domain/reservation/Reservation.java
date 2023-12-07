@@ -1,6 +1,7 @@
 package christmas.domain.reservation;
 
 import christmas.domain.date.Date;
+import christmas.domain.event.EventDate;
 import christmas.domain.order.OrderBoard;
 import java.util.Map;
 
@@ -33,5 +34,21 @@ public class Reservation {
 
     public Map<String, Integer> getMenunameWithCount() {
         return orderBoard.getMenunameWithCount();
+    }
+
+    public Boolean isNotOverChristmas() {
+        return EventDate.isNotOverChristmas(getDate());
+    }
+
+    public boolean isSundayOrChristmas() {
+        return EventDate.isSundayOrChristmas(getDate());
+    }
+
+    public Boolean isWeekday() {
+        return EventDate.isWeekday(getDate());
+    }
+
+    public boolean isWeekend() {
+        return EventDate.isWeekend(getDate());
     }
 }
