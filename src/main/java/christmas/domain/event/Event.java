@@ -1,99 +1,80 @@
 package christmas.domain.event;
 
-import christmas.domain.Discountable;
 import christmas.domain.reservation.Reservation;
+import java.util.function.Function;
 
 public enum Event {
-    CHRISTMAS(10_000, date -> date * 100 + 1_000, "크리스마스 디데이") {
-        @Override
-        public boolean canApply(Reservation reservation) {
-            return EventDate.isNotOverChristmas(reservation.getDate()) &&
-                    canApplyPrice(reservation.getTotalPrice());
-        }
+    CHRISTMAS(
+            reservation ->
+                    EventDate.isNotOverChristmas(reservation.getDate()) &&
+                    canApplyPrice(
+                            reservation.getTotalPrice(),
+                            10_000
+                    ),
+            reservation -> reservation.getDate() * 100 + 900,
+            "크리스마스 디데이"),
 
-        @Override
-        public int apply(Reservation reservation) {
-            // 날짜에 따른 할인
-            return calculateDiscountPrice(reservation.getDate());
-        }
-    },
+    GIFT(
+            reservation -> canApplyPrice(reservation.getTotalPrice(), 120_000),
+            reservation -> 25_000,
+            "증정"),
 
-    GIFT(120_000, price -> 25_000, "증정") {
-        @Override
-        public boolean canApply(Reservation reservation) {
-            return canApplyPrice(reservation.getTotalPrice());
-        }
+    SPECIAL(
+            reservation ->
+                    EventDate.isSundayOrChristmas(reservation.getDate()) &&
+                    canApplyPrice(
+                            reservation.getTotalPrice(),
+                            10_000
+                    ),
+            reservation -> 1_000,
+            "특별"),
 
-        /**
-         * 증정 이벤트는 가격이나 메뉴 혹은 날짜에 따라 할인 금액이 변하지 않으므로 calculateDiscountPrice() 함수에 아무 값이나 넣어준다.
-         * @param reservation
-         * @return
-         */
-        @Override
-        public int apply(Reservation reservation) {
-            return calculateDiscountPrice(reservation.getDate());
-        }
-    },
+    WEEKDAY(
+            reservation ->
+                    EventDate.isWeekday(reservation.getDate()) &&
+                    canApplyPrice(
+                            reservation.getTotalPrice(),
+                            10_000
+                    ),
+            reservation -> reservation.getCountOfMainMenu() * 2_023,
+            "평일"),
 
-    SPECIAL(10_000, price -> 1_000, "특별") {
-        @Override
-        public boolean canApply(Reservation reservation) {
-            return EventDate.isSundayOrChristmas(reservation.getDate()) &&
-                    canApplyPrice(reservation.getTotalPrice());
-        }
-
-        @Override
-        public int apply(Reservation reservation) {
-            return calculateDiscountPrice(reservation.getDate());
-        }
-    },
-
-    WEEKDAY(10_000, countOfMainMenu -> countOfMainMenu * 2_023, "평일") {
-        @Override
-        public boolean canApply(Reservation reservation) {
-            return EventDate.isWeekday(reservation.getDate()) &&
-                    canApplyPrice(reservation.getTotalPrice());
-        }
-
-        @Override
-        public int apply(Reservation reservation) {
-            return calculateDiscountPrice(reservation.getCountOfDessertMenu());
-        }
-    },
-
-    WEEKEND(10_000, countOfDessertMenu -> countOfDessertMenu * 2_023, "주말") {
-        @Override
-        public boolean canApply(Reservation reservation) {
-            return EventDate.isWeekend(reservation.getDate()) &&
-                    canApplyPrice(reservation.getTotalPrice());
-        }
-
-        @Override
-        public int apply(Reservation reservation) {
-            return calculateDiscountPrice(reservation.getCountOfMainMenu());
-        }
-    },
+    WEEKEND(
+            reservation ->
+                    EventDate.isWeekend(reservation.getDate()) &&
+                    canApplyPrice(
+                            reservation.getTotalPrice(),
+                            10_000
+                    ),
+            reservation -> reservation.getCountOfDessertMenu() * 2_023,
+            "주말"),
     ;
 
-    private final int minimumTotalPurchasePrice;
-    private final Discountable discountable;
+    private final Function<Reservation, Boolean> canApply;
+    private final Function<Reservation, Integer> calculateDiscountPrice;
+
     private final String name;
 
-    Event(int minimumTotalPurchasePrice, Discountable discountable, String name) {
-        this.minimumTotalPurchasePrice = minimumTotalPurchasePrice;
-        this.discountable = discountable;
+    Event(
+            Function<Reservation, Boolean> canApply,
+            Function<Reservation, Integer> calculateDiscountPrice,
+            String name
+    ) {
+        this.canApply = canApply;
+        this.calculateDiscountPrice = calculateDiscountPrice;
         this.name = name;
     }
 
-    public abstract boolean canApply(final Reservation reservation);
-    public abstract int apply(final Reservation reservation);
-
-    public boolean canApplyPrice(int totalPurchasePrice) {
-        return totalPurchasePrice >= this.minimumTotalPurchasePrice;
+    private static boolean canApplyPrice(int totalPurchasePrice, int minimumTotalPurchasePrice) {
+        return totalPurchasePrice >= minimumTotalPurchasePrice;
     }
 
-    public int calculateDiscountPrice(int value) {
-        return this.discountable.discount(value);
+    public boolean canApply(final Reservation reservation) {
+        return this.canApply.apply((reservation));
+    }
+
+    public int apply(final Reservation reservation) {
+        return this.calculateDiscountPrice.apply(reservation);
     }
 
     public String getName() {
