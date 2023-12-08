@@ -1,7 +1,8 @@
 package christmas.controller;
 
-import christmas.domain.Date;
+import christmas.domain.ReservationDate;
 import christmas.domain.OrderBoard;
+import christmas.exception.ExceptionCode;
 import christmas.exception.ExceptionHandler;
 import christmas.service.ChristmasService;
 import christmas.service.dto.EventPreviewDto;
@@ -29,23 +30,23 @@ public class ChristmasController {
         outputView.printWelcome();
 
         // 날짜 입력받아 생성
-        Date date = ExceptionHandler.handle(this::createDateFromUserInput);
+        ReservationDate date = ExceptionHandler.handle(this::createDateFromUserInput, ExceptionCode.INVALID_DATE);
 
         // 주문 입력받아 생성
-        OrderBoard orderBoard = ExceptionHandler.handle(this::createOrderBoardFromUserInput);
+        OrderBoard orderBoard = ExceptionHandler.handle(this::createOrderBoardFromUserInput, ExceptionCode.INVALID_ORDER);
 
         // 날짜와 주문으로 이벤트 미리보기 생성 및 출력
         EventPreviewDto eventPreviewDto = christmasService.getPreview(date, orderBoard);
         outputView.printPreview(eventPreviewDto);
     }
 
-    private Date createDateFromUserInput() {
-        int reserveDate = inputView.readReserveDate();
-        return new Date(reserveDate);
+    private ReservationDate createDateFromUserInput(ExceptionCode e) {
+        int reserveDate = inputView.readReserveDate(e);
+        return new ReservationDate(reserveDate, e);
     }
 
-    private OrderBoard createOrderBoardFromUserInput() {
-        List<OrderDto> orders = inputView.readOrders();
-        return new OrderBoard(orders);
+    private OrderBoard createOrderBoardFromUserInput(ExceptionCode e) {
+        List<OrderDto> orders = inputView.readOrders(e);
+        return new OrderBoard(orders, e);
     }
 }
