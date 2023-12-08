@@ -26,6 +26,8 @@ public class ChristmasController {
     private final ChristmasService christmasService = ChristmasService.getInstance();
 
     public void run() {
+        outputView.printWelcome();
+
         // 날짜 입력받아 생성
         Date date = ExceptionHandler.handle(this::createDateFromUserInput);
 
