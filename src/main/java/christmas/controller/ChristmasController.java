@@ -34,7 +34,7 @@ public class ChristmasController {
 
         // 날짜와 주문으로 이벤트 미리보기 생성 및 출력
         EventPreviewDto eventPreviewDto = christmasService.getPreview(date, orderBoard);
-        OutputView.printPreview(eventPreviewDto);
+        outputView.printPreview(eventPreviewDto);
     }
 
     private Date createDateFromUserInput() {
