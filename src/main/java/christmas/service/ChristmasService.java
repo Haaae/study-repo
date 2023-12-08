@@ -27,7 +27,7 @@ public class ChristmasService {
 
         Badge badge = Badge.from(totalDiscountPrice);
 
-        return new EventPreviewDto(orderBoard, eventWithDiscountPrice, badge);
+        return new EventPreviewDto(date, orderBoard, eventWithDiscountPrice, badge);
     }
 
     private Map<Event, Integer> getEventWithDiscountPrice(ReservationDate date, OrderBoard orderBoard) {
