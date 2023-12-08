@@ -29,6 +29,10 @@ public class Order {
         return count;
     }
 
+    public String getName() {
+        return menu.getName();
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -45,4 +49,5 @@ public class Order {
     public int hashCode() {
         return Objects.hash(menu);
     }
+
 }

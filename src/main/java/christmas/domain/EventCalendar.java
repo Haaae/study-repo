@@ -4,8 +4,8 @@ public enum EventCalendar {
     YEAR(2023),
     MONTH(12),
     START_DATE(1),
-    END_DATE(31)
-    ;
+    END_DATE(31),
+    CHRISTMAS(25);
 
     private final int value;
 

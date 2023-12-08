@@ -4,6 +4,8 @@ import christmas.exception.ExceptionCode;
 import christmas.utils.vadliator.Validator;
 import christmas.view.dto.OrderDto;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OrderBoard {
 
@@ -44,5 +46,29 @@ public class OrderBoard {
 
     private static void validateDuplication(ExceptionCode e, List<Order> orders) {
         Validator.isDuplication(orders, e);
+    }
+
+    public boolean hasBiggerOrSameTotalPriceThan(int price) {
+        return getTotalPurchasePrice() >= price;
+    }
+
+    public int getTotalPurchasePrice() {
+        return orders.stream()
+                .mapToInt(Order::getPrice)
+                .sum();
+    }
+
+    public Map<String, Integer> getMenuWithCount() {
+        return orders.stream()
+                .collect(Collectors.toUnmodifiableMap(
+                        Order::getName,
+                        Order::getCount
+                ));
+    }
+
+    public int getCountOfMenuType(MenuType type) {
+        return (int) orders.stream()
+                .filter(order -> order.isSameMenuType(type))
+                .count();
     }
 }
