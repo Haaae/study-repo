@@ -3,6 +3,7 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import christmas.exception.ExceptionCode;
 import christmas.utils.converter.Converter;
+import christmas.utils.parser.Parser;
 import christmas.view.constant.Notice;
 import christmas.view.dto.OrderDto;
 import java.util.List;
@@ -27,6 +28,10 @@ public class InputView {
     }
 
     public List<OrderDto> readOrders() {
+        return Parser.parseToOrderDtos(
+                Console.readLine(),
+                ExceptionCode.INVALID_ORDER
+        );
     }
 
 }
