@@ -55,7 +55,7 @@ public enum Event {
     private final boolean hasGift;
     private final String gift;
 
-    public Event(
+    Event(
             String name,
             BiPredicate<ReservationDate, OrderBoard> predicateApply,
             BiFunction<ReservationDate, OrderBoard, Integer> calculateDiscountPrice,
