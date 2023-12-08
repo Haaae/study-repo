@@ -8,7 +8,7 @@ public enum Format {
     PREVIEW_MENU("%s %d개"),
     GIFT("%s"),
     EVENT("%s: -%s원"),
-    TOTAL_DISCOUNT_PRICE("-%d원"),
+    TOTAL_DISCOUNT_PRICE("-%s원"),
     BADGE("%s"),
     ;
 
