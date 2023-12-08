@@ -1,5 +1,7 @@
-package christmas.domain;
+package christmas.domain.order;
 
+import christmas.domain.menu.Menu;
+import christmas.domain.menu.MenuType;
 import christmas.exception.ExceptionCode;
 import christmas.utils.vadliator.Validator;
 import java.util.Objects;

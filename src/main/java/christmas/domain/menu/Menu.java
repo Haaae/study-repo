@@ -1,7 +1,6 @@
-package christmas.domain;
+package christmas.domain.menu;
 
 import christmas.exception.ExceptionCode;
-import java.awt.Button;
 import java.util.stream.Stream;
 
 public enum Menu {

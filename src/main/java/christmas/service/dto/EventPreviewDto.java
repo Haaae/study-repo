@@ -1,8 +1,8 @@
 package christmas.service.dto;
 
-import christmas.domain.Badge;
-import christmas.domain.Event;
-import christmas.domain.OrderBoard;
+import christmas.domain.badge.Badge;
+import christmas.domain.event.Event;
+import christmas.domain.order.OrderBoard;
 import java.util.List;
 import java.util.Map;
 

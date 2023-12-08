@@ -1,5 +1,8 @@
-package christmas.domain;
+package christmas.domain.event;
 
+import christmas.domain.menu.MenuType;
+import christmas.domain.order.OrderBoard;
+import christmas.domain.date.ReservationDate;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 

@@ -1,9 +1,9 @@
 package christmas.service;
 
-import christmas.domain.Badge;
-import christmas.domain.Event;
-import christmas.domain.ReservationDate;
-import christmas.domain.OrderBoard;
+import christmas.domain.badge.Badge;
+import christmas.domain.event.Event;
+import christmas.domain.date.ReservationDate;
+import christmas.domain.order.OrderBoard;
 import christmas.service.dto.EventPreviewDto;
 import java.util.Map;
 import java.util.stream.Collectors;

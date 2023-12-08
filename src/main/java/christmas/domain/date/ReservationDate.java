@@ -1,5 +1,6 @@
-package christmas.domain;
+package christmas.domain.date;
 
+import christmas.domain.event.EventCalendar;
 import christmas.exception.ExceptionCode;
 import christmas.utils.vadliator.Validator;
 import java.time.DayOfWeek;

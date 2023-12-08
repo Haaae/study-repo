@@ -1,7 +1,7 @@
 package christmas.controller;
 
-import christmas.domain.ReservationDate;
-import christmas.domain.OrderBoard;
+import christmas.domain.date.ReservationDate;
+import christmas.domain.order.OrderBoard;
 import christmas.exception.ExceptionCode;
 import christmas.exception.ExceptionHandler;
 import christmas.service.ChristmasService;
