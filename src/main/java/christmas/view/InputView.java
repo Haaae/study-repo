@@ -18,19 +18,19 @@ public class InputView {
         return instance;
     }
 
-    public int readReserveDate() {
+    public int readReserveDate(ExceptionCode e) {
         Notice.DATE.print();
 
         return Converter.toInt(
                 Console.readLine(),
-                ExceptionCode.INVALID_DATE
+                e
         );
     }
 
-    public List<OrderDto> readOrders() {
+    public List<OrderDto> readOrders(ExceptionCode e) {
         return Parser.parseToOrderDtos(
                 Console.readLine(),
-                ExceptionCode.INVALID_ORDER
+                e
         );
     }
 
