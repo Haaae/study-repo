@@ -156,7 +156,7 @@ public class Validator {
         }
     }
 
-    public static void isNotValue(
+    public static void isNotSame(
             final Number target,
             final Number invalidValue,
             final ExceptionCode e
